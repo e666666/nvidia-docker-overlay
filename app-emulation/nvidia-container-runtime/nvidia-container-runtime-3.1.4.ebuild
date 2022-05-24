@@ -53,6 +53,7 @@ src_compile() {
     export CGO_CFLAGS="-I${ROOT}/usr/include"
     export CGO_LDFLAGS="-L${ROOT}/usr/$(get_libdir)"
     export GOPATH=$WORKDIR
+    export GO111MODULE=on
 
     local options=( $(usex seccomp "seccomp") )
 
@@ -62,7 +63,7 @@ src_compile() {
 
     cd $WORKDIR/$NV_GITHUB_REPO/toolkit/nvidia-container-toolkit || die
     export GOPATH=`pwd`
-    GO111MODULE=on go build || die
+    go build || die
 }
 
 src_install() {
