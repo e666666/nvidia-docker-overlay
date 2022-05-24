@@ -62,7 +62,7 @@ src_compile() {
 
     cd $WORKDIR/$NV_GITHUB_REPO/toolkit/nvidia-container-toolkit || die
     export GOPATH=`pwd`
-    go build || die
+    GO111MODULE=on go build || die
 }
 
 src_install() {
