@@ -53,17 +53,17 @@ src_compile() {
     export CGO_CFLAGS="-I${ROOT}/usr/include"
     export CGO_LDFLAGS="-L${ROOT}/usr/$(get_libdir)"
     export GOPATH=$WORKDIR
-    export GO111MODULE=on
+    export GO111MODULE=auto
 
     local options=( $(usex seccomp "seccomp") )
 
-    emake BUILDTAGS="${options[@]}"
+    GO111MODULE=auto emake BUILDTAGS="${options[@]}"
 
     # BEGIN nvidia-container-runtime-hook build:
 
     cd $WORKDIR/$NV_GITHUB_REPO/toolkit/nvidia-container-toolkit || die
     export GOPATH=`pwd`
-    go build || die
+    GO111MODULE=auto go build || die
 }
 
 src_install() {
